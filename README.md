@@ -1,5 +1,5 @@
 
-  # UX Design with Image and Text
+  # 1st Release (Jolie's Web)
 
   This is a code bundle for UX Design with Image and Text. The original project is available at https://www.figma.com/design/KqATnp3ytpumwVnibPu2cD/UX-Design-with-Image-and-Text.
 
