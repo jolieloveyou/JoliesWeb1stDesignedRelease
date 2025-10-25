@@ -68,14 +68,14 @@ export function AboutMe() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
             className="relative bg-white/5 backdrop-blur-sm rounded-lg p-8 md:p-12 border border-white/10"
           >
             <p 
               className="text-gray-300 leading-relaxed text-lg"
               style={{
                 fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif',
-                fontWeight: 300
+                fontWeight: 500
               }}
             >
               Hey there! Welcome to my "Universe"!<br /><br />
