@@ -15,7 +15,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen flex flex-col bg-black text-white">
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -40,11 +40,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               {navigation.map((item) => {
                 const isActive = location.pathname === item.href;
                 return (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className="relative"
-                  >
+                  <Link key={item.name} to={item.href} className="relative">
                     <motion.span
                       className={`text-sm tracking-wide transition-colors ${
                         isActive ? 'text-white' : 'text-gray-400 hover:text-white'
@@ -113,9 +109,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </nav>
 
       {/* Main Content */}
-      <main className="pt-16">
-        {children}
-      </main>
+      <main className="pt-16 flex-grow">{children}</main>
+
+      {/* Footer */}
+      <footer className="text-center text-gray-500 py-6 border-t border-white/10 text-sm">
+        © 2025 Jolie Nguyen. All rights reserved.
+      </footer>
     </div>
   );
 }
