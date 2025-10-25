@@ -1,6 +1,5 @@
 import { motion } from 'motion/react';
-import jolieImage from 'figma:asset/5aa006ee0d74e6bf12997219376b980afcfebcea.png';
-
+import jolieImage from '@/assets/porfolio-jolieface.png';
 export function Hero() {
   return (
     <div className="min-h-screen flex flex-col md:flex-row bg-black">
