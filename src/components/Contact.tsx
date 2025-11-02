@@ -66,7 +66,7 @@ export function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-white mb-4"
+            className="text-white mb-4 text-4xl md:text-5xl lg:text-6xl"
             style={{
               fontFamily: 'Georgia, "Times New Roman", serif',
               fontWeight: 700,
@@ -119,7 +119,7 @@ export function Contact() {
                 {/* Content */}
                 <div className="text-center">
                   <h3 
-                    className="text-white mb-2 flex items-center justify-center gap-2"
+                    className="text-white mb-2 flex items-center justify-center gap-2 text-xl md:text-2xl"
                     style={{
                       fontFamily: 'Georgia, "Times New Roman", serif',
                       fontWeight: 600

@@ -54,7 +54,7 @@ export function Education() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-white mb-8"
+            className="text-white mb-8 text-4xl md:text-5xl lg:text-6xl"
             style={{
               fontFamily: 'Georgia, "Times New Roman", serif',
               fontWeight: 700,
@@ -82,7 +82,7 @@ export function Education() {
               />
               <div>
                 <h3 
-                  className="text-white mb-2"
+                  className="text-white mb-2 text-xl md:text-2xl"
                   style={{
                     fontFamily: 'Georgia, "Times New Roman", serif',
                     fontWeight: 600

@@ -1,31 +1,39 @@
 import { motion } from 'motion/react';
-import jolieImage from '@/assets/porfolio-jolieface.png';
+import jolieImage from 'figma:asset/5aa006ee0d74e6bf12997219376b980afcfebcea.png';
+
 export function Hero() {
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-black">
+    <div className="min-h-screen flex flex-col md:flex-row items-center justify-center bg-black px-4 md:px-8 gap-8 md:gap-12">
       {/* Left Side - Profile Image with Black Mirror Effect */}
-      <div className="w-full md:w-1/2 h-screen relative overflow-hidden">
-        {/* Main Image */}
-        <img
-          src={jolieImage}
-          alt="Jolie's portrait"
-          className="w-full h-full object-cover"
-        />
-        
-        {/* Glass/Mirror Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/10 to-black/80" />
-        
-        {/* Reflection Effect */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60" />
-        
-        {/* Scanline Effect */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="h-full w-full bg-gradient-to-b from-transparent via-white to-transparent bg-[length:100%_4px] animate-pulse" />
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
+        className="w-full md:w-auto max-w-sm md:max-w-md lg:max-w-lg relative"
+      >
+        <div className="aspect-[3/4] relative overflow-hidden rounded-lg">
+          {/* Main Image */}
+          <img
+            src={jolieImage}
+            alt="Jolie's portrait"
+            className="w-full h-full object-cover"
+          />
+          
+          {/* Glass/Mirror Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/10 to-black/30" />
+          
+          {/* Reflection Effect */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40" />
+          
+          {/* Scanline Effect */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="h-full w-full bg-gradient-to-b from-transparent via-white to-transparent bg-[length:100%_4px] animate-pulse" />
+          </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Right Side - Black Mirror Text */}
-      <div className="w-full md:w-1/2 h-screen flex items-center justify-center bg-black relative overflow-hidden">
+      <div className="w-full md:w-auto md:flex-1 flex items-center justify-center relative overflow-hidden">
         {/* Grid Background */}
         <div className="absolute inset-0 opacity-10">
           <div className="h-full w-full" 
@@ -50,7 +58,7 @@ export function Hero() {
           }}
         />
 
-        <div className="relative z-10 text-center px-8 flex flex-col justify-center h-full py-24">
+        <div className="relative z-10 text-center px-4 md:px-8 flex flex-col justify-center py-12 md:py-24">
           {/* Top Text - "Welcome to" */}
           <motion.div
             initial={{ x: 300, opacity: 0 }}
@@ -59,10 +67,10 @@ export function Hero() {
               duration: 1.5,
               ease: [0.16, 1, 0.3, 1]
             }}
-            className="relative mb-8"
+            className="relative mb-4 md:mb-8"
           >
             <div 
-              className="text-white tracking-tight relative text-2xl md:text-3xl lg:text-4xl"
+              className="text-white tracking-tight relative text-xl md:text-2xl lg:text-3xl"
               style={{
                 fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif',
                 fontWeight: 200,
@@ -85,7 +93,7 @@ export function Hero() {
                 repeat: Infinity,
                 repeatDelay: 5
               }}
-              className="absolute top-0 left-0 w-full text-white tracking-tight opacity-70 text-2xl md:text-3xl lg:text-4xl"
+              className="absolute top-0 left-0 w-full text-white tracking-tight opacity-70 text-xl md:text-2xl lg:text-3xl"
               style={{
                 fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif',
                 fontWeight: 200,
@@ -107,10 +115,10 @@ export function Hero() {
               delay: 0.3,
               ease: [0.16, 1, 0.3, 1]
             }}
-            className="relative mb-6"
+            className="relative mb-4 md:mb-6"
           >
             <div 
-              className="text-white relative text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
+              className="text-white relative text-3xl md:text-4xl lg:text-5xl xl:text-6xl"
               style={{
                 fontFamily: 'Georgia, "Times New Roman", serif',
                 fontWeight: 700,
@@ -134,7 +142,7 @@ export function Hero() {
                 repeat: Infinity,
                 repeatDelay: 5
               }}
-              className="absolute top-0 left-0 w-full text-white opacity-70 text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
+              className="absolute top-0 left-0 w-full text-white opacity-70 text-3xl md:text-4xl lg:text-5xl xl:text-6xl"
               style={{
                 fontFamily: 'Georgia, "Times New Roman", serif',
                 fontWeight: 700,
@@ -148,7 +156,7 @@ export function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Slogan - "Think Bigger, Feel Deeper" */}
+          {/* Slogan - "Think Bigger, Feel Deeper" with Flash Animation */}
           <motion.div
             initial={{ x: 300, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -159,8 +167,17 @@ export function Hero() {
             }}
             className="relative"
           >
-            <div 
-              className="text-gray-400 relative text-xl md:text-2xl lg:text-3xl italic"
+            <motion.div 
+              animate={{
+                opacity: [1, 0.4, 1, 0.4, 1]
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                repeatDelay: 4,
+                ease: "easeInOut"
+              }}
+              className="text-gray-400 relative text-base md:text-lg lg:text-xl italic"
               style={{
                 fontFamily: 'Georgia, "Times New Roman", serif',
                 fontWeight: 400,
@@ -168,9 +185,9 @@ export function Hero() {
               }}
             >
               <span className="relative inline-block">
-                Think Bigger, Feel Deeper
+                "{" "}Think Bigger, Feel Deeper{" "}"
               </span>
-            </div>
+            </motion.div>
 
             {/* Subtle underline animation */}
             <motion.div
@@ -181,7 +198,7 @@ export function Hero() {
                 delay: 1.2,
                 ease: "easeOut"
               }}
-              className="mt-3 h-px w-48 bg-gradient-to-r from-transparent via-white/40 to-transparent mx-auto origin-center"
+              className="mt-3 h-px w-40 md:w-48 bg-gradient-to-r from-transparent via-white/40 to-transparent mx-auto origin-center"
             />
           </motion.div>
         </div>

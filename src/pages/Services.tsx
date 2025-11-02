@@ -63,7 +63,7 @@ export function Services() {
             className="text-center"
           >
             <h1 
-              className="text-white mb-6"
+              className="text-white mb-6 text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
               style={{
                 fontFamily: 'Georgia, "Times New Roman", serif',
                 fontWeight: 700,
@@ -112,7 +112,7 @@ export function Services() {
 
                     {/* Content */}
                     <h3 
-                      className="text-white mb-4"
+                      className="text-white mb-4 text-xl md:text-2xl lg:text-3xl"
                       style={{
                         fontFamily: 'Georgia, "Times New Roman", serif',
                         fontWeight: 600
@@ -174,7 +174,7 @@ export function Services() {
             transition={{ duration: 0.8 }}
           >
             <h2 
-              className="text-white mb-6"
+              className="text-white mb-6 text-3xl md:text-4xl lg:text-5xl"
               style={{
                 fontFamily: 'Georgia, "Times New Roman", serif',
                 fontWeight: 700

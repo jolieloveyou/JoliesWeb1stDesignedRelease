@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
+import { ChatBot } from './ChatBot';
 
 const navigation = [
   { name: 'Portfolio', href: '/' },
@@ -15,7 +16,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen flex flex-col bg-black text-white">
+    <div className="min-h-screen bg-black text-white">
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -40,7 +41,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
               {navigation.map((item) => {
                 const isActive = location.pathname === item.href;
                 return (
-                  <Link key={item.name} to={item.href} className="relative">
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className="relative"
+                  >
                     <motion.span
                       className={`text-sm tracking-wide transition-colors ${
                         isActive ? 'text-white' : 'text-gray-400 hover:text-white'
@@ -109,12 +114,32 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </nav>
 
       {/* Main Content */}
-      <main className="pt-16 flex-grow">{children}</main>
+      <main className="pt-16">
+        {children}
+      </main>
 
       {/* Footer */}
-      <footer className="text-center text-gray-500 py-6 border-t border-white/10 text-sm">
-        © 2025 Jolie Nguyen. All rights reserved.
+      <footer className="relative bg-black/50 backdrop-blur-sm border-t border-white/10 mt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="text-center">
+            <p 
+              className="text-gray-400 text-sm tracking-wide"
+              style={{
+                fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif',
+                fontWeight: 300
+              }}
+            >
+              © 2025 Jolie Nguyen. All rights reserved.
+            </p>
+          </div>
+        </div>
+
+        {/* Decorative line */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
       </footer>
+
+      {/* AI ChatBot - Available on all pages */}
+      <ChatBot />
     </div>
   );
 }

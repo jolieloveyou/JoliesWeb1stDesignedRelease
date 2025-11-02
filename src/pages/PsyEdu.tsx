@@ -51,7 +51,7 @@ export function PsyEdu() {
             className="text-center"
           >
             <h1 
-              className="text-white mb-6"
+              className="text-white mb-6 text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
               style={{
                 fontFamily: 'Georgia, "Times New Roman", serif',
                 fontWeight: 700,
@@ -107,7 +107,7 @@ export function PsyEdu() {
                   </div>
 
                   <h3 
-                    className="text-white mb-3 group-hover:text-gray-300 transition-colors"
+                    className="text-white mb-3 group-hover:text-gray-300 transition-colors text-xl md:text-2xl"
                     style={{
                       fontFamily: 'Georgia, "Times New Roman", serif',
                       fontWeight: 600

@@ -96,7 +96,7 @@ export function Products() {
             className="text-center"
           >
             <h1 
-              className="text-white mb-6"
+              className="text-white mb-6 text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
               style={{
                 fontFamily: 'Georgia, "Times New Roman", serif',
                 fontWeight: 700,
@@ -173,7 +173,7 @@ export function Products() {
                   </div>
 
                   <h3 
-                    className="text-white mb-2"
+                    className="text-white mb-2 text-xl md:text-2xl"
                     style={{
                       fontFamily: 'Georgia, "Times New Roman", serif',
                       fontWeight: 600
@@ -239,7 +239,7 @@ export function Products() {
             className="text-center"
           >
             <h2 
-              className="text-white mb-6"
+              className="text-white mb-6 text-3xl md:text-4xl lg:text-5xl"
               style={{
                 fontFamily: 'Georgia, "Times New Roman", serif',
                 fontWeight: 700
