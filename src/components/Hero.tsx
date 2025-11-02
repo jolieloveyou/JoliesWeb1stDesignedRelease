@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import jolieImage from 'asset/porfolio-jolieface.png';
+import jolieImage from 'src/asset/porfolio-jolieface.png';
 
 export function Hero() {
   return (
