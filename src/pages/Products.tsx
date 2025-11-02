@@ -1,7 +1,22 @@
 import { motion } from 'motion/react';
-import { ShoppingCart, Star } from 'lucide-react';
+import { ShoppingCart, Star, X, Lock } from 'lucide-react';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { useState } from 'react';
+import { PaymentPortal } from '../components/PaymentPortal';
+import { Button } from '../components/ui/button';
+import { toast } from 'sonner@2.0.3';
+
+interface ProductsProps {
+  isRegistered: boolean;
+  userEmail: string;
+}
+
+interface CartItem {
+  id: number;
+  name: string;
+  price: number;
+  quantity: number;
+}
 
 const products = [
   {
@@ -54,12 +69,51 @@ const products = [
   }
 ];
 
-export function Products() {
-  const [cart, setCart] = useState<number[]>([]);
+export function Products({ isRegistered, userEmail }: ProductsProps) {
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [showCheckout, setShowCheckout] = useState(false);
 
-  const addToCart = (productId: number) => {
-    setCart([...cart, productId]);
-    // In a real app, this would trigger a toast notification
+  const addToCart = (product: typeof products[0]) => {
+    // Check if user is registered before allowing to add to cart
+    if (!isRegistered) {
+      toast.error('Please register to receive updates before making a purchase', {
+        description: 'Click the "Get Updates" button in the navigation to register'
+      });
+      return;
+    }
+
+    const existingItem = cart.find(item => item.id === product.id);
+    
+    if (existingItem) {
+      setCart(cart.map(item => 
+        item.id === product.id 
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      ));
+      toast.success(`Added another ${product.name} to cart`);
+    } else {
+      setCart([...cart, { 
+        id: product.id, 
+        name: product.name, 
+        price: product.price, 
+        quantity: 1 
+      }]);
+      toast.success(`${product.name} added to cart`);
+    }
+  };
+
+  const removeFromCart = (productId: number) => {
+    setCart(cart.filter(item => item.id !== productId));
+    toast.info('Item removed from cart');
+  };
+
+  const getTotalPrice = () => {
+    return cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  };
+
+  const handlePaymentSuccess = () => {
+    setCart([]);
+    setShowCheckout(false);
   };
 
   return (
@@ -106,7 +160,7 @@ export function Products() {
               My Products
             </h1>
             <p 
-              className="text-gray-400 max-w-2xl mx-auto"
+              className="text-gray-400 max-w-2xl mx-auto mb-4"
               style={{
                 fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif',
                 fontWeight: 300
@@ -115,18 +169,39 @@ export function Products() {
               Tools and resources to support your mental wellness journey
             </p>
 
+            {/* Registration Notice */}
+            {!isRegistered && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-yellow-500/10 border border-yellow-500/30 rounded-full text-yellow-400 text-sm"
+              >
+                <Lock size={16} />
+                <span 
+                  style={{
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif',
+                    fontWeight: 300
+                  }}
+                >
+                  Register to unlock purchasing
+                </span>
+              </motion.div>
+            )}
+
             {/* Cart Indicator */}
             {cart.length > 0 && (
-              <motion.div
+              <motion.button
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
-                className="fixed top-20 right-4 z-50 bg-white text-black rounded-full w-12 h-12 flex items-center justify-center shadow-lg"
+                onClick={() => setShowCheckout(!showCheckout)}
+                className="fixed top-20 right-4 z-50 bg-white text-black rounded-full w-12 h-12 flex items-center justify-center shadow-lg hover:bg-gray-200 transition-colors"
               >
                 <ShoppingCart size={20} />
                 <span className="absolute -top-2 -right-2 bg-black text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">
-                  {cart.length}
+                  {cart.reduce((sum, item) => sum + item.quantity, 0)}
                 </span>
-              </motion.div>
+              </motion.button>
             )}
           </motion.div>
         </div>
@@ -206,7 +281,7 @@ export function Products() {
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      onClick={() => addToCart(product.id)}
+                      onClick={() => addToCart(product)}
                       className="flex items-center gap-2 px-4 py-2 bg-white text-black rounded-full text-sm hover:bg-gray-200 transition-colors"
                       style={{
                         fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif',
@@ -228,46 +303,167 @@ export function Products() {
         </div>
       </section>
 
-      {/* Payment Info Section */}
-      <section className="py-24 border-t border-white/10">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Cart Sidebar */}
+      {showCheckout && cart.length > 0 && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={() => setShowCheckout(false)}
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-40"
+        >
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-center"
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            onClick={(e) => e.stopPropagation()}
+            className="fixed right-0 top-0 h-full w-full md:w-96 bg-black border-l border-white/20 overflow-y-auto"
           >
-            <h2 
-              className="text-white mb-6 text-3xl md:text-4xl lg:text-5xl"
-              style={{
-                fontFamily: 'Georgia, "Times New Roman", serif',
-                fontWeight: 700
-              }}
-            >
-              Secure Checkout
-            </h2>
-            <p 
-              className="text-gray-400 mb-8"
-              style={{
-                fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif',
-                fontWeight: 300
-              }}
-            >
-              All transactions are encrypted and secure. We accept all major payment methods.
-            </p>
-            <div className="flex justify-center gap-4 text-gray-500 text-sm">
-              <span>Visa</span>
-              <span>•</span>
-              <span>Mastercard</span>
-              <span>•</span>
-              <span>PayPal</span>
-              <span>•</span>
-              <span>Apple Pay</span>
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h3 
+                  className="text-white"
+                  style={{
+                    fontFamily: 'Georgia, "Times New Roman", serif',
+                    fontWeight: 600
+                  }}
+                >
+                  Shopping Cart
+                </h3>
+                <button
+                  onClick={() => setShowCheckout(false)}
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+
+              {/* Cart Items */}
+              <div className="space-y-4 mb-6">
+                {cart.map((item) => (
+                  <div key={item.id} className="bg-white/5 border border-white/10 rounded-lg p-4">
+                    <div className="flex justify-between items-start mb-2">
+                      <div>
+                        <h4 
+                          className="text-white text-sm"
+                          style={{
+                            fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif',
+                            fontWeight: 500
+                          }}
+                        >
+                          {item.name}
+                        </h4>
+                        <p className="text-gray-400 text-xs">Qty: {item.quantity}</p>
+                      </div>
+                      <button
+                        onClick={() => removeFromCart(item.id)}
+                        className="text-gray-400 hover:text-red-400 transition-colors"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-400 text-sm">${item.price} each</span>
+                      <span 
+                        className="text-white"
+                        style={{
+                          fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif',
+                          fontWeight: 500
+                        }}
+                      >
+                        ${(item.price * item.quantity).toFixed(2)}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Total */}
+              <div className="border-t border-white/10 pt-4 mb-6">
+                <div className="flex justify-between items-center mb-4">
+                  <span 
+                    className="text-gray-400"
+                    style={{
+                      fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif',
+                      fontWeight: 300
+                    }}
+                  >
+                    Total
+                  </span>
+                  <span 
+                    className="text-white text-xl"
+                    style={{
+                      fontFamily: 'Georgia, "Times New Roman", serif',
+                      fontWeight: 600
+                    }}
+                  >
+                    ${getTotalPrice().toFixed(2)}
+                  </span>
+                </div>
+              </div>
             </div>
           </motion.div>
-        </div>
-      </section>
+        </motion.div>
+      )}
+
+      {/* Payment Section */}
+      {cart.length > 0 && showCheckout && (
+        <section className="py-24 border-t border-white/10">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <PaymentPortal
+              isRegistered={isRegistered}
+              userEmail={userEmail}
+              amount={getTotalPrice()}
+              productName={`${cart.length} item(s)`}
+              onPaymentSuccess={handlePaymentSuccess}
+            />
+          </div>
+        </section>
+      )}
+
+      {/* Payment Info Section */}
+      {cart.length === 0 && (
+        <section className="py-24 border-t border-white/10">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="text-center"
+            >
+              <h2 
+                className="text-white mb-6 text-3xl md:text-4xl lg:text-5xl"
+                style={{
+                  fontFamily: 'Georgia, "Times New Roman", serif',
+                  fontWeight: 700
+                }}
+              >
+                Secure Checkout
+              </h2>
+              <p 
+                className="text-gray-400 mb-8"
+                style={{
+                  fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif',
+                  fontWeight: 300
+                }}
+              >
+                All transactions are encrypted and secure. We accept all major payment methods.
+              </p>
+              <div className="flex justify-center gap-4 text-gray-500 text-sm">
+                <span>Visa</span>
+                <span>•</span>
+                <span>Mastercard</span>
+                <span>•</span>
+                <span>PayPal</span>
+                <span>•</span>
+                <span>Apple Pay</span>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+      )}
     </div>
   );
 }

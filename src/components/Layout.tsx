@@ -1,8 +1,10 @@
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Bell, CheckCircle } from 'lucide-react';
 import { useState } from 'react';
 import { ChatBot } from './ChatBot';
+import { NewsletterRegistration } from './NewsletterRegistration';
+import { Button } from './ui/button';
 
 const navigation = [
   { name: 'Portfolio', href: '/' },
@@ -11,9 +13,18 @@ const navigation = [
   { name: 'My Product', href: '/products' },
 ];
 
-export function Layout({ children }: { children: React.ReactNode }) {
+interface LayoutProps {
+  children: React.ReactNode;
+  isRegistered: boolean;
+  userEmail: string;
+  userName: string;
+  onRegister: (email: string, name: string) => void;
+}
+
+export function Layout({ children, isRegistered, userEmail, userName, onRegister }: LayoutProps) {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showRegistration, setShowRegistration] = useState(false);
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -68,15 +79,55 @@ export function Layout({ children }: { children: React.ReactNode }) {
                   </Link>
                 );
               })}
+              
+              {/* Register Button */}
+              <Button
+                onClick={() => setShowRegistration(true)}
+                className={`${
+                  isRegistered 
+                    ? 'bg-green-500/20 text-green-400 border border-green-500/30 hover:bg-green-500/30' 
+                    : 'bg-white text-black hover:bg-gray-200'
+                } transition-colors`}
+                size="sm"
+              >
+                {isRegistered ? (
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4" />
+                    <span className="hidden lg:inline">Registered</span>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2">
+                    <Bell className="w-4 h-4" />
+                    Get Updates
+                  </div>
+                )}
+              </Button>
             </div>
 
-            {/* Mobile menu button */}
-            <button
-              className="md:hidden text-white"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+            {/* Mobile menu button and register button */}
+            <div className="md:hidden flex items-center gap-3">
+              <Button
+                onClick={() => setShowRegistration(true)}
+                className={`${
+                  isRegistered 
+                    ? 'bg-green-500/20 text-green-400 border border-green-500/30' 
+                    : 'bg-white text-black'
+                }`}
+                size="sm"
+              >
+                {isRegistered ? (
+                  <CheckCircle className="w-4 h-4" />
+                ) : (
+                  <Bell className="w-4 h-4" />
+                )}
+              </Button>
+              <button
+                className="text-white"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              >
+                {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -140,6 +191,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
       {/* AI ChatBot - Available on all pages */}
       <ChatBot />
+
+      {/* Newsletter Registration Modal */}
+      <NewsletterRegistration 
+        isOpen={showRegistration}
+        onClose={() => setShowRegistration(false)}
+        onRegister={onRegister}
+      />
     </div>
   );
 }
