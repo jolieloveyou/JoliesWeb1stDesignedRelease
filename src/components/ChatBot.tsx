@@ -169,7 +169,7 @@ export function ChatBot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="fixed bottom-24 md:bottom-28 right-6 z-50 w-[calc(100vw-3rem)] md:w-96 h-[500px] md:h-[600px] bg-black/95 backdrop-blur-xl rounded-lg border border-white/20 shadow-2xl overflow-hidden"
+            className="fixed bottom-24 md:bottom-28 right-6 z-50 w-[calc(100vw-3rem)] md:w-96 h-[500px] md:h-[600px] bg-[#FAF0E6]/98 backdrop-blur-xl rounded-lg border border-[#D2B48C]/40 shadow-2xl overflow-hidden"
           >
             {/* Grid Background */}
             <div className="absolute inset-0 opacity-5">
@@ -182,14 +182,14 @@ export function ChatBot() {
             </div>
 
             {/* Header */}
-            <div className="relative bg-white/5 backdrop-blur-sm border-b border-white/10 p-4">
+            <div className="relative bg-[#E8D7C3]/50 backdrop-blur-sm border-b border-[#D2B48C]/30 p-4">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
-                  <Bot className="w-5 h-5 text-white" />
+                <div className="w-10 h-10 rounded-full bg-[#D2B48C]/40 flex items-center justify-center">
+                  <Bot className="w-5 h-5 text-[#8B7355]" />
                 </div>
                 <div>
                   <h3 
-                    className="text-white text-lg"
+                    className="text-[#3E2723] text-lg"
                     style={{
                       fontFamily: 'Georgia, "Times New Roman", serif',
                       fontWeight: 600
@@ -197,14 +197,14 @@ export function ChatBot() {
                   >
                     AI Assistant
                   </h3>
-                  <p className="text-gray-400 text-xs">
+                  <p className="text-[#8B7355] text-xs">
                     {isTyping ? 'Typing...' : 'Online'}
                   </p>
                 </div>
               </div>
 
               {/* Corner Accent */}
-              <div className="absolute top-2 right-2 w-8 h-8 border-t border-r border-white/20" />
+              <div className="absolute top-2 right-2 w-8 h-8 border-t border-r border-[#8B7355]/30" />
             </div>
 
             {/* Messages */}
@@ -219,12 +219,12 @@ export function ChatBot() {
                 >
                   {/* Avatar */}
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                    message.sender === 'user' ? 'bg-white/20' : 'bg-white/10'
+                    message.sender === 'user' ? 'bg-[#A0826D]/40' : 'bg-[#D2B48C]/40'
                   }`}>
                     {message.sender === 'user' ? (
-                      <User className="w-4 h-4 text-white" />
+                      <User className="w-4 h-4 text-[#3E2723]" />
                     ) : (
-                      <Bot className="w-4 h-4 text-white" />
+                      <Bot className="w-4 h-4 text-[#8B7355]" />
                     )}
                   </div>
 
@@ -233,8 +233,8 @@ export function ChatBot() {
                     <div 
                       className={`px-4 py-2 rounded-lg ${
                         message.sender === 'user' 
-                          ? 'bg-white text-black' 
-                          : 'bg-white/10 text-white border border-white/20'
+                          ? 'bg-[#8B7355] text-[#FAF0E6]' 
+                          : 'bg-[#E8D7C3]/50 text-[#3E2723] border border-[#D2B48C]/30'
                       }`}
                     >
                       <p 
@@ -247,7 +247,7 @@ export function ChatBot() {
                         {message.text}
                       </p>
                     </div>
-                    <span className="text-xs text-gray-500 mt-1 px-1">
+                    <span className="text-xs text-[#A0826D] mt-1 px-1">
                       {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </span>
                   </div>
@@ -261,23 +261,23 @@ export function ChatBot() {
                   animate={{ opacity: 1, y: 0 }}
                   className="flex gap-2"
                 >
-                  <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
-                    <Bot className="w-4 h-4 text-white" />
+                  <div className="w-8 h-8 rounded-full bg-[#D2B48C]/40 flex items-center justify-center">
+                    <Bot className="w-4 h-4 text-[#8B7355]" />
                   </div>
-                  <div className="bg-white/10 border border-white/20 rounded-lg px-4 py-3">
+                  <div className="bg-[#E8D7C3]/50 border border-[#D2B48C]/30 rounded-lg px-4 py-3">
                     <div className="flex gap-1">
                       <motion.div
-                        className="w-2 h-2 bg-white/60 rounded-full"
+                        className="w-2 h-2 bg-[#8B7355]/60 rounded-full"
                         animate={{ y: [0, -5, 0] }}
                         transition={{ duration: 0.6, repeat: Infinity, delay: 0 }}
                       />
                       <motion.div
-                        className="w-2 h-2 bg-white/60 rounded-full"
+                        className="w-2 h-2 bg-[#8B7355]/60 rounded-full"
                         animate={{ y: [0, -5, 0] }}
                         transition={{ duration: 0.6, repeat: Infinity, delay: 0.2 }}
                       />
                       <motion.div
-                        className="w-2 h-2 bg-white/60 rounded-full"
+                        className="w-2 h-2 bg-[#8B7355]/60 rounded-full"
                         animate={{ y: [0, -5, 0] }}
                         transition={{ duration: 0.6, repeat: Infinity, delay: 0.4 }}
                       />
@@ -290,7 +290,7 @@ export function ChatBot() {
             </div>
 
             {/* Input */}
-            <div className="relative border-t border-white/10 p-4">
+            <div className="relative border-t border-[#D2B48C]/30 p-4">
               <div className="flex gap-2">
                 <input
                   type="text"
@@ -298,7 +298,7 @@ export function ChatBot() {
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={handleKeyPress}
                   placeholder="Type your message..."
-                  className="flex-1 bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-white/40 transition-colors"
+                  className="flex-1 bg-[#FAEBD7] border border-[#D2B48C]/40 rounded-lg px-4 py-2 text-[#3E2723] placeholder-[#A0826D] focus:outline-none focus:border-[#8B7355] transition-colors"
                   style={{
                     fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif',
                     fontWeight: 400
@@ -308,7 +308,7 @@ export function ChatBot() {
                   onClick={handleSendMessage}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-10 h-10 bg-white text-black rounded-lg flex items-center justify-center hover:bg-gray-200 transition-colors"
+                  className="w-10 h-10 bg-[#8B7355] text-[#FAF0E6] rounded-lg flex items-center justify-center hover:bg-[#A0826D] transition-colors"
                 >
                   <Send className="w-5 h-5" />
                 </motion.button>

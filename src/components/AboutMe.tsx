@@ -3,12 +3,12 @@ import { Sparkles } from 'lucide-react';
 
 export function AboutMe() {
   return (
-    <section className="relative py-24 bg-black overflow-hidden">
+    <section className="relative py-24 bg-gradient-to-br from-[#FAEBD7] via-[#FAF0E6] to-[#F5F5DC] overflow-hidden">
       {/* Background Grid */}
       <div className="absolute inset-0 opacity-5">
         <div className="h-full w-full" 
           style={{
-            backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
+            backgroundImage: 'linear-gradient(rgba(139,115,85,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(139,115,85,0.1) 1px, transparent 1px)',
             backgroundSize: '50px 50px'
           }}
         />
@@ -16,7 +16,7 @@ export function AboutMe() {
 
       {/* Animated Glow */}
       <motion.div
-        className="absolute top-1/2 left-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl"
+        className="absolute top-1/2 left-1/4 w-96 h-96 bg-[#D2B48C]/20 rounded-full blur-3xl"
         animate={{
           scale: [1, 1.3, 1],
           opacity: [0.2, 0.4, 0.2]
@@ -42,9 +42,9 @@ export function AboutMe() {
             whileInView={{ scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-8"
+            className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#E8D7C3]/50 backdrop-blur-sm border border-[#D2B48C]/30 mb-8"
           >
-            <Sparkles className="w-8 h-8 text-white" />
+            <Sparkles className="w-8 h-8 text-[#8B7355]" />
           </motion.div>
 
           {/* Title */}
@@ -53,7 +53,7 @@ export function AboutMe() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-white mb-8 text-4xl md:text-5xl lg:text-6xl"
+            className="text-[#3E2723] mb-8 text-4xl md:text-5xl lg:text-6xl"
             style={{
               fontFamily: 'Georgia, "Times New Roman", serif',
               fontWeight: 700,
@@ -69,22 +69,22 @@ export function AboutMe() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="relative bg-white/5 backdrop-blur-sm rounded-lg p-8 md:p-12 border border-white/10"
+            className="relative bg-[#FAF0E6]/60 backdrop-blur-sm rounded-lg p-8 md:p-12 border border-[#D2B48C]/30 shadow-lg"
           >
             <p 
-              className="text-gray-300 leading-relaxed text-lg"
+              className="text-[#6D4C41] leading-relaxed text-lg"
               style={{
                 fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif',
                 fontWeight: 300
               }}
             >
               Hey there! Welcome to my "Universe"!<br /><br />
-              I'm a passionate newbie in software development, diving headfirst into Web development and Data analysis with big dreams for the next five years. Creating impactful solutions is my driving force and 'spiritual soul' mission! When I'm not coding, you'll catch me somewhere fun and adventurous. I'm thrilled to connect, collaborate, and bring ideas to life ;)
+              I'm a passionate newbie in Software Development, diving headfirst into Web development and Data Analysis with big dreams for the next five years. Creating impactful solutions is my driving force and 'spiritual soul' mission! When I'm not coding, you'll catch me at home, coding. I'm thrilled to connect, collaborate, and bring ideas to life ;)
             </p>
 
             {/* Corner Accents */}
-            <div className="absolute -top-2 -left-2 w-12 h-12 border-t border-l border-white/20" />
-            <div className="absolute -bottom-2 -right-2 w-12 h-12 border-b border-r border-white/20" />
+            <div className="absolute -top-2 -left-2 w-12 h-12 border-t border-l border-[#8B7355]/30" />
+            <div className="absolute -bottom-2 -right-2 w-12 h-12 border-b border-r border-[#8B7355]/30" />
           </motion.div>
         </motion.div>
       </div>

@@ -1,9 +1,9 @@
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Menu, X, Bell, CheckCircle } from 'lucide-react';
+import { Menu, X, Sparkles, CheckCircle } from 'lucide-react';
 import { useState } from 'react';
 import { ChatBot } from './ChatBot';
-import { NewsletterRegistration } from './NewsletterRegistration';
+import { ConsultationBooking } from './ConsultationBooking';
 import { Button } from './ui/button';
 
 const navigation = [
@@ -19,28 +19,29 @@ interface LayoutProps {
   userEmail: string;
   userName: string;
   onRegister: (email: string, name: string) => void;
+  onBooking: (name: string, email: string, message: string, wantsUpdates: boolean) => void;
 }
 
-export function Layout({ children, isRegistered, userEmail, userName, onRegister }: LayoutProps) {
+export function Layout({ children, isRegistered, userEmail, userName, onRegister, onBooking }: LayoutProps) {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [showRegistration, setShowRegistration] = useState(false);
+  const [showBooking, setShowBooking] = useState(false);
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-gradient-to-br from-[#F5F5DC] via-[#FAEBD7] to-[#FAF0E6] text-[#3E2723]">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#FAF0E6]/95 backdrop-blur-md border-b border-[#D2B48C]/30 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link to="/" className="flex items-center">
               <motion.span
                 whileHover={{ scale: 1.05 }}
-                className="text-white tracking-tight"
+                className="text-[#8B7355] tracking-tight text-xl"
                 style={{
                   fontFamily: 'Georgia, "Times New Roman", serif',
                   fontWeight: 700,
-                  letterSpacing: '0.05em'
+                  letterSpacing: '0.08em'
                 }}
               >
                 JOLIE
@@ -59,11 +60,11 @@ export function Layout({ children, isRegistered, userEmail, userName, onRegister
                   >
                     <motion.span
                       className={`text-sm tracking-wide transition-colors ${
-                        isActive ? 'text-white' : 'text-gray-400 hover:text-white'
+                        isActive ? 'text-[#8B7355]' : 'text-[#A0826D] hover:text-[#8B7355]'
                       }`}
                       style={{
                         fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif',
-                        fontWeight: 300
+                        fontWeight: isActive ? 500 : 400
                       }}
                       whileHover={{ y: -2 }}
                     >
@@ -72,7 +73,7 @@ export function Layout({ children, isRegistered, userEmail, userName, onRegister
                     {isActive && (
                       <motion.div
                         layoutId="activeTab"
-                        className="absolute -bottom-2 left-0 right-0 h-px bg-white"
+                        className="absolute -bottom-2 left-0 right-0 h-0.5 bg-[#8B7355]"
                         transition={{ type: "spring", stiffness: 380, damping: 30 }}
                       />
                     )}
@@ -80,49 +81,104 @@ export function Layout({ children, isRegistered, userEmail, userName, onRegister
                 );
               })}
               
-              {/* Register Button */}
-              <Button
-                onClick={() => setShowRegistration(true)}
-                className={`${
-                  isRegistered 
-                    ? 'bg-green-500/20 text-green-400 border border-green-500/30 hover:bg-green-500/30' 
-                    : 'bg-white text-black hover:bg-gray-200'
-                } transition-colors`}
-                size="sm"
-              >
-                {isRegistered ? (
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4" />
-                    <span className="hidden lg:inline">Registered</span>
-                  </div>
-                ) : (
-                  <div className="flex items-center gap-2">
-                    <Bell className="w-4 h-4" />
-                    Get Updates
-                  </div>
+              {/* Book Me Now Button with Sparkles */}
+              <motion.div className="relative">
+                {/* Sparkle animations */}
+                {!isRegistered && (
+                  <>
+                    <motion.div
+                      className="absolute -top-1 -left-1 text-yellow-500"
+                      animate={{
+                        scale: [0, 1, 0],
+                        rotate: [0, 180, 360],
+                        opacity: [0, 1, 0]
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        repeatDelay: 0.5
+                      }}
+                    >
+                      <Sparkles className="w-4 h-4" />
+                    </motion.div>
+                    <motion.div
+                      className="absolute -top-2 -right-2 text-yellow-400"
+                      animate={{
+                        scale: [0, 1, 0],
+                        rotate: [360, 180, 0],
+                        opacity: [0, 1, 0]
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        delay: 0.3,
+                        repeatDelay: 0.5
+                      }}
+                    >
+                      <Sparkles className="w-3 h-3" />
+                    </motion.div>
+                    <motion.div
+                      className="absolute -bottom-1 right-0 text-yellow-300"
+                      animate={{
+                        scale: [0, 1, 0],
+                        rotate: [0, -180, -360],
+                        opacity: [0, 1, 0]
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        delay: 0.6,
+                        repeatDelay: 0.5
+                      }}
+                    >
+                      <Sparkles className="w-3 h-3" />
+                    </motion.div>
+                  </>
                 )}
-              </Button>
+
+                <Button
+                  onClick={() => setShowBooking(true)}
+                  className="bg-[#8B7355] text-[#FAF0E6] hover:bg-[#A0826D] shadow-lg transition-all duration-300"
+                  size="sm"
+                >
+                  <motion.div 
+                    className="flex items-center gap-2"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Sparkles className="w-4 h-4" />
+                    Book Me Now
+                  </motion.div>
+                </Button>
+              </motion.div>
             </div>
 
-            {/* Mobile menu button and register button */}
+            {/* Mobile menu button and book button */}
             <div className="md:hidden flex items-center gap-3">
-              <Button
-                onClick={() => setShowRegistration(true)}
-                className={`${
-                  isRegistered 
-                    ? 'bg-green-500/20 text-green-400 border border-green-500/30' 
-                    : 'bg-white text-black'
-                }`}
-                size="sm"
-              >
-                {isRegistered ? (
-                  <CheckCircle className="w-4 h-4" />
-                ) : (
-                  <Bell className="w-4 h-4" />
-                )}
-              </Button>
+              <motion.div className="relative">
+                <motion.div
+                  className="absolute -top-1 -right-1 text-yellow-500"
+                  animate={{
+                    scale: [0, 1, 0],
+                    opacity: [0, 1, 0]
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity
+                  }}
+                >
+                  <Sparkles className="w-3 h-3" />
+                </motion.div>
+                <Button
+                  onClick={() => setShowBooking(true)}
+                  className="bg-[#8B7355] text-[#FAF0E6]"
+                  size="sm"
+                >
+                  <Sparkles className="w-4 h-4" />
+                </Button>
+              </motion.div>
               <button
-                className="text-white"
+                className="text-[#8B7355]"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               >
                 {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -137,7 +193,7 @@ export function Layout({ children, isRegistered, userEmail, userName, onRegister
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-black border-t border-white/10"
+            className="md:hidden bg-[#FAF0E6] border-t border-[#D2B48C]/30"
           >
             <div className="px-4 py-4 space-y-3">
               {navigation.map((item) => {
@@ -148,11 +204,11 @@ export function Layout({ children, isRegistered, userEmail, userName, onRegister
                     to={item.href}
                     onClick={() => setMobileMenuOpen(false)}
                     className={`block py-2 text-sm ${
-                      isActive ? 'text-white' : 'text-gray-400'
+                      isActive ? 'text-[#8B7355]' : 'text-[#A0826D]'
                     }`}
                     style={{
                       fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif',
-                      fontWeight: 300
+                      fontWeight: isActive ? 500 : 400
                     }}
                   >
                     {item.name}
@@ -170,11 +226,11 @@ export function Layout({ children, isRegistered, userEmail, userName, onRegister
       </main>
 
       {/* Footer */}
-      <footer className="relative bg-black/50 backdrop-blur-sm border-t border-white/10 mt-20">
+      <footer className="relative bg-[#E8D7C3]/50 backdrop-blur-sm border-t border-[#D2B48C]/30 mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center">
             <p 
-              className="text-gray-400 text-sm tracking-wide"
+              className="text-[#8B7355] text-sm tracking-wide"
               style={{
                 fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif',
                 fontWeight: 300
@@ -186,17 +242,17 @@ export function Layout({ children, isRegistered, userEmail, userName, onRegister
         </div>
 
         {/* Decorative line */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-px bg-gradient-to-r from-transparent via-[#A0826D]/30 to-transparent" />
       </footer>
 
       {/* AI ChatBot - Available on all pages */}
       <ChatBot />
 
-      {/* Newsletter Registration Modal */}
-      <NewsletterRegistration 
-        isOpen={showRegistration}
-        onClose={() => setShowRegistration(false)}
-        onRegister={onRegister}
+      {/* Consultation Booking Modal */}
+      <ConsultationBooking 
+        isOpen={showBooking}
+        onClose={() => setShowBooking(false)}
+        onBooking={onBooking}
       />
     </div>
   );

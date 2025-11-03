@@ -22,6 +22,16 @@ export default function App() {
     localStorage.setItem('userName', name);
   };
 
+  const handleBooking = (name: string, email: string, message: string, wantsUpdates: boolean) => {
+    // Store booking information
+    console.log('Consultation Booking:', { name, email, message, wantsUpdates });
+    // In a real app, this would save to backend/Supabase
+    localStorage.setItem('bookingName', name);
+    localStorage.setItem('bookingEmail', email);
+    localStorage.setItem('bookingMessage', message);
+    localStorage.setItem('wantsUpdates', wantsUpdates.toString());
+  };
+
   // Check localStorage on mount
   useState(() => {
     const registered = localStorage.getItem('isRegistered') === 'true';
@@ -41,6 +51,7 @@ export default function App() {
         userEmail={userEmail}
         userName={userName}
         onRegister={handleRegister}
+        onBooking={handleBooking}
       >
         <Routes>
           <Route path="/" element={<Portfolio />} />

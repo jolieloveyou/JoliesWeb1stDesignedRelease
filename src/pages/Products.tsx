@@ -74,14 +74,6 @@ export function Products({ isRegistered, userEmail }: ProductsProps) {
   const [showCheckout, setShowCheckout] = useState(false);
 
   const addToCart = (product: typeof products[0]) => {
-    // Check if user is registered before allowing to add to cart
-    if (!isRegistered) {
-      toast.error('Please register to receive updates before making a purchase', {
-        description: 'Click the "Get Updates" button in the navigation to register'
-      });
-      return;
-    }
-
     const existingItem = cart.find(item => item.id === product.id);
     
     if (existingItem) {
@@ -117,20 +109,20 @@ export function Products({ isRegistered, userEmail }: ProductsProps) {
   };
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-gradient-to-br from-[#F5F5DC] via-[#FAEBD7] to-[#FAF0E6]">
       {/* Hero Section */}
       <section className="relative py-24 overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 opacity-5">
           <div className="h-full w-full" 
             style={{
-              backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
+              backgroundImage: 'linear-gradient(rgba(139,115,85,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(139,115,85,0.1) 1px, transparent 1px)',
               backgroundSize: '50px 50px'
             }}
           />
         </div>
 
         <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-3xl"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#D2B48C]/20 rounded-full blur-3xl"
           animate={{
             scale: [1, 1.2, 1],
             opacity: [0.3, 0.5, 0.3]
@@ -150,7 +142,7 @@ export function Products({ isRegistered, userEmail }: ProductsProps) {
             className="text-center"
           >
             <h1 
-              className="text-white mb-6 text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
+              className="text-[#3E2723] mb-6 text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
               style={{
                 fontFamily: 'Georgia, "Times New Roman", serif',
                 fontWeight: 700,
@@ -160,7 +152,7 @@ export function Products({ isRegistered, userEmail }: ProductsProps) {
               My Products
             </h1>
             <p 
-              className="text-gray-400 max-w-2xl mx-auto mb-4"
+              className="text-[#8B7355] max-w-2xl mx-auto mb-4"
               style={{
                 fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif',
                 fontWeight: 300
@@ -168,26 +160,6 @@ export function Products({ isRegistered, userEmail }: ProductsProps) {
             >
               Tools and resources to support your mental wellness journey
             </p>
-
-            {/* Registration Notice */}
-            {!isRegistered && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-yellow-500/10 border border-yellow-500/30 rounded-full text-yellow-400 text-sm"
-              >
-                <Lock size={16} />
-                <span 
-                  style={{
-                    fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif',
-                    fontWeight: 300
-                  }}
-                >
-                  Register to unlock purchasing
-                </span>
-              </motion.div>
-            )}
 
             {/* Cart Indicator */}
             {cart.length > 0 && (
