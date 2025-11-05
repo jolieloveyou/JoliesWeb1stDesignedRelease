@@ -137,69 +137,6 @@ const webDevServices = [
   },
 ];
 
-export function Services() {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F5F5DC] via-[#FAEBD7] to-[#FAF0E6]">
-      {/* ✅ Thêm Hero có video */}
-      <Hero />
-
-      {/* Hero Section */}
-      <section className="relative py-24 overflow-hidden">
-        <div className="absolute inset-0 opacity-5">
-          <div
-            className="h-full w-full"
-            style={{
-              backgroundImage:
-                "linear-gradient(rgba(139,115,85,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(139,115,85,0.1) 1px, transparent 1px)",
-              backgroundSize: "50px 50px",
-            }}
-          />
-        </div>
-
-        <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#D2B48C]/20 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{
-            duration: 4,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center"
-          >
-            <h1
-              className="text-[#3E2723] mb-6 text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
-              style={{
-                fontFamily: 'Georgia, "Times New Roman", serif',
-                fontWeight: 700,
-                letterSpacing: "0.02em",
-              }}
-            >
-              My Services
-            </h1>
-            <p
-              className="text-[#8B7355] max-w-2xl mx-auto text-lg"
-              style={{
-                fontFamily:
-                  '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif',
-                fontWeight: 300,
-              }}
-            >
-              Transform your data into insights and build stunning web applications that bring your vision to life.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
       {/* Data Analysis Section */}
       <section id="data-analysis" className="py-16 scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
