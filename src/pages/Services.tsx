@@ -137,6 +137,12 @@ const webDevServices = [
   },
 ];
 
+export function Services() {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-[#F5F5DC] via-[#FAEBD7] to-[#FAF0E6]">
+      {/* ✅ Thêm Hero có video */}
+      <Hero />
+      
       {/* Data Analysis Section */}
       <section id="data-analysis" className="py-16 scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
