@@ -25,16 +25,19 @@ export function Hero() {
       {/* Image Slider */}
       <div className="absolute inset-0 w-full h-full">
         <AnimatePresence initial={false} mode="wait">
-          <motion.img
-            key={currentImageIndex}
-            src={images[currentImageIndex]}
-            alt="Jolie visual"
-            variants={fadeVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{ duration: 1.5, ease: "easeInOut" }}
-            className="absolute inset-0 w-full h-full object-cover object-center"
+         <motion.video
+          key={currentImageIndex}
+          src={images[currentImageIndex]}
+          variants={fadeVariants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={{ duration: 1.5, ease: "easeInOut" }}
+          className="absolute inset-0 w-full h-full object-cover object-center"
+          autoPlay
+          loop
+          muted
+          playsInline
           />
         </AnimatePresence>
         {/* Overlay gradient */}
