@@ -1,9 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import jolieImage1 from "../assets/jolie1.png";
-import jolieImage2 from "../assets/jolie2.png";
-import jolieImage3 from "../assets/jolie3.png";
-import jolieImage4 from "../assets/jolie4.png";
+import jolieImage1 from "../assets/thumbnail (1).mp4";
 
 export function Hero() {
   const images = [jolieImage1, jolieImage2, jolieImage3, jolieImage4];
