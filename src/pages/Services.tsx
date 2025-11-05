@@ -6,10 +6,15 @@ import {
 import { Button } from "../components/ui/button";
 import ServiceVideo from "../assets/video1.mp4";
 
+import { motion } from "framer-motion";
+import { useState } from "react";
+import { Button } from "../components/ui/button";
+import { Calendar } from "lucide-react";
+import ServiceVideo from "../assets/video1.mp4";
+
 export function Hero() {
   const videos = [ServiceVideo];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
   const fadeVariants = {
     enter: { opacity: 0 },
     center: { opacity: 1 },
@@ -18,6 +23,7 @@ export function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#F9F5EE]">
+      {/* 🔁 Video nền */}
       <motion.video
         key={currentImageIndex}
         src={videos[currentImageIndex]}
@@ -26,14 +32,59 @@ export function Hero() {
         animate="center"
         exit="exit"
         transition={{ duration: 1.5, ease: "easeInOut" }}
-        className="absolute inset-0 w-full h-full object-cover object-center"
+        className="absolute inset-0 w-full h-[85vh] object-cover object-center"
         autoPlay
         muted
+        loop   // ✅ tự repeat
         playsInline
-        onEnded={() =>
-          setCurrentImageIndex((prev) => (prev + 1) % videos.length)
-        }
       />
+
+      {/* 🔤 Chữ đè lên video */}
+      <div className="relative z-10 text-center px-4">
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="text-[#FAF0E6] drop-shadow-lg text-5xl md:text-6xl lg:text-7xl font-bold"
+          style={{
+            fontFamily: 'Georgia, "Times New Roman", serif',
+          }}
+        >
+          My Services
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, delay: 0.3 }}
+          className="mt-6 text-[#F9F5EE]/90 text-lg md:text-xl max-w-2xl mx-auto"
+          style={{
+            fontFamily:
+              '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif',
+            fontWeight: 300,
+          }}
+        >
+          Transform your data into insights and build stunning web applications that bring your vision to life.
+        </motion.p>
+
+        {/* nút CTA đè lên video */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, delay: 0.5 }}
+          className="mt-10"
+        >
+          <Button
+            size="lg"
+            className="px-10 py-6 bg-[#8B7355] text-[#FAF0E6] hover:bg-[#A0826D] rounded-full shadow-lg text-lg"
+          >
+            <Calendar className="w-5 h-5 mr-2" />
+            Book Consultation
+          </Button>
+        </motion.div>
+      </div>
+
+      {/* overlay làm mờ video để chữ rõ hơn */}
+      <div className="absolute inset-0 bg-black/30" />
     </section>
   );
 }
