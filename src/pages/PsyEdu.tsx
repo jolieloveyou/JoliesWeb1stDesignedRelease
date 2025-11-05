@@ -31,17 +31,31 @@ const blogPosts = [
 
 export function PsyEdu() {
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-gradient-to-br from-[#F5F5DC] via-[#FAEBD7] to-[#FAF0E6]">
       {/* Hero Section */}
       <section className="relative py-24 overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 opacity-5">
           <div className="h-full w-full" 
             style={{
-              backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
+              backgroundImage: 'linear-gradient(rgba(139,115,85,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(139,115,85,0.1) 1px, transparent 1px)',
               backgroundSize: '50px 50px'
             }}
           />
         </div>
+
+        {/* Animated Glow */}
+        <motion.div
+          className="absolute top-1/3 right-1/4 w-96 h-96 bg-[#D2B48C]/20 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.2, 0.4, 0.2]
+          }}
+          transition={{
+            duration: 5,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -51,7 +65,7 @@ export function PsyEdu() {
             className="text-center"
           >
             <h1 
-              className="text-white mb-6 text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
+              className="text-[#3E2723] mb-6 text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
               style={{
                 fontFamily: 'Georgia, "Times New Roman", serif',
                 fontWeight: 700,
@@ -61,7 +75,7 @@ export function PsyEdu() {
               PsyEdu Blog
             </h1>
             <p 
-              className="text-gray-400 max-w-2xl mx-auto"
+              className="text-[#8B7355] max-w-2xl mx-auto text-lg"
               style={{
                 fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif',
                 fontWeight: 300
@@ -83,19 +97,26 @@ export function PsyEdu() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative bg-white/5 backdrop-blur-sm rounded-lg overflow-hidden border border-white/10 hover:border-white/30 transition-all duration-300"
+                whileHover={{ y: -8 }}
+                className="group relative bg-[#FAF0E6]/60 backdrop-blur-sm rounded-lg overflow-hidden border border-[#D2B48C]/30 hover:border-[#8B7355]/50 hover:shadow-xl transition-all duration-300"
               >
-                <div className="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-white/5" />
+                <div className="aspect-video bg-gradient-to-br from-[#E8D7C3] to-[#D2B48C] relative overflow-hidden">
+                  <div className="absolute inset-0 bg-[#8B7355]/10" />
+                  <div className="absolute inset-0 opacity-20"
+                    style={{
+                      backgroundImage: 'linear-gradient(rgba(139,115,85,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(139,115,85,0.2) 1px, transparent 1px)',
+                      backgroundSize: '20px 20px'
+                    }}
+                  />
                   <div className="absolute top-4 left-4">
-                    <span className="text-xs px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-white border border-white/20">
+                    <span className="text-xs px-3 py-1 bg-[#FAF0E6]/90 backdrop-blur-sm rounded-full text-[#8B7355] border border-[#D2B48C]/40">
                       {post.category}
                     </span>
                   </div>
                 </div>
 
                 <div className="p-6">
-                  <div className="flex items-center gap-4 mb-4 text-xs text-gray-400">
+                  <div className="flex items-center gap-4 mb-4 text-xs text-[#A0826D]">
                     <div className="flex items-center gap-1">
                       <Calendar size={14} />
                       <span>{post.date}</span>
@@ -107,7 +128,7 @@ export function PsyEdu() {
                   </div>
 
                   <h3 
-                    className="text-white mb-3 group-hover:text-gray-300 transition-colors text-xl md:text-2xl"
+                    className="text-[#3E2723] mb-3 group-hover:text-[#6D4C41] transition-colors text-xl md:text-2xl"
                     style={{
                       fontFamily: 'Georgia, "Times New Roman", serif',
                       fontWeight: 600
@@ -117,7 +138,7 @@ export function PsyEdu() {
                   </h3>
 
                   <p 
-                    className="text-gray-400 text-sm mb-4"
+                    className="text-[#6D4C41] text-sm mb-4"
                     style={{
                       fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif',
                       fontWeight: 300
@@ -126,17 +147,20 @@ export function PsyEdu() {
                     {post.excerpt}
                   </p>
 
-                  <button className="flex items-center gap-2 text-white text-sm group-hover:gap-3 transition-all">
-                    Read More
+                  <button className="flex items-center gap-2 text-[#8B7355] text-sm group-hover:gap-3 transition-all">
+                    <span style={{
+                      fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif',
+                      fontWeight: 500
+                    }}>
+                      Read More
+                    </span>
                     <ArrowRight size={16} />
                   </button>
                 </div>
 
-                <motion.div
-                  className="absolute inset-0 border border-white/0 group-hover:border-white/20 rounded-lg pointer-events-none"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
-                />
+                {/* Corner Accents */}
+                <div className="absolute -top-1 -right-1 w-8 h-8 border-t border-r border-[#8B7355]/40 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute -bottom-1 -left-1 w-8 h-8 border-b border-l border-[#8B7355]/40 opacity-0 group-hover:opacity-100 transition-opacity" />
               </motion.article>
             ))}
           </div>

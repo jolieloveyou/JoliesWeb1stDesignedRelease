@@ -113,7 +113,7 @@ export function ChatBot() {
       {/* Floating Chat Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 md:w-16 md:h-16 rounded-full bg-white text-black flex items-center justify-center shadow-2xl border-2 border-white/20"
+        className="fixed bottom-6 right-6 z-50 w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#8B7355] text-[#FAF0E6] flex items-center justify-center shadow-2xl border-2 border-[#D2B48C]/40"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         initial={{ scale: 0 }}
@@ -147,7 +147,7 @@ export function ChatBot() {
         {/* Notification Pulse */}
         {!isOpen && (
           <motion.div
-            className="absolute inset-0 rounded-full bg-white"
+            className="absolute inset-0 rounded-full bg-[#A0826D]"
             animate={{
               scale: [1, 1.3, 1],
               opacity: [0.5, 0, 0.5]
@@ -175,7 +175,7 @@ export function ChatBot() {
             <div className="absolute inset-0 opacity-5">
               <div className="h-full w-full" 
                 style={{
-                  backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
+                  backgroundImage: 'linear-gradient(rgba(139,115,85,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(139,115,85,0.1) 1px, transparent 1px)',
                   backgroundSize: '20px 20px'
                 }}
               />
