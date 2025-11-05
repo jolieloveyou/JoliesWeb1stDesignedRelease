@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react'; // 👈 thêm useEffect ở đây
 import { Layout } from './components/Layout';
 import { Portfolio } from './pages/Portfolio';
 import { PsyEdu } from './pages/PsyEdu';
@@ -16,38 +16,43 @@ export default function App() {
     setIsRegistered(true);
     setUserEmail(email);
     setUserName(name);
-    // In a real app, this would save to backend/Supabase
+
+    // 🧠 Lưu lại vào localStorage để nhớ cho lần sau
     localStorage.setItem('isRegistered', 'true');
     localStorage.setItem('userEmail', email);
     localStorage.setItem('userName', name);
   };
 
-  const handleBooking = (name: string, email: string, message: string, wantsUpdates: boolean) => {
-    // Store booking information
+  const handleBooking = (
+    name: string,
+    email: string,
+    message: string,
+    wantsUpdates: boolean
+  ) => {
     console.log('Consultation Booking:', { name, email, message, wantsUpdates });
-    // In a real app, this would save to backend/Supabase
     localStorage.setItem('bookingName', name);
     localStorage.setItem('bookingEmail', email);
     localStorage.setItem('bookingMessage', message);
     localStorage.setItem('wantsUpdates', wantsUpdates.toString());
   };
 
-  // Check localStorage on mount
-  useState(() => {
+  // ✅ Dùng useEffect để chạy khi app load (mount)
+  useEffect(() => {
     const registered = localStorage.getItem('isRegistered') === 'true';
     const email = localStorage.getItem('userEmail') || '';
     const name = localStorage.getItem('userName') || '';
+
     if (registered) {
       setIsRegistered(true);
       setUserEmail(email);
       setUserName(name);
     }
-  });
+  }, []); // 👈 dependency rỗng => chỉ chạy 1 lần khi app khởi động
 
   return (
     <Router>
-      <Layout 
-        isRegistered={isRegistered} 
+      <Layout
+        isRegistered={isRegistered}
         userEmail={userEmail}
         userName={userName}
         onRegister={handleRegister}
@@ -57,14 +62,14 @@ export default function App() {
           <Route path="/" element={<Portfolio />} />
           <Route path="/psyedu" element={<PsyEdu />} />
           <Route path="/services" element={<Services />} />
-          <Route 
-            path="/products" 
+          <Route
+            path="/products"
             element={
-              <Products 
+              <Products
                 isRegistered={isRegistered}
                 userEmail={userEmail}
               />
-            } 
+            }
           />
         </Routes>
       </Layout>
