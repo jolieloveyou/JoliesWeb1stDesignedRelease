@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import jolieImage1 from "../assets/thumbnail (1).mp4";
 
 export function Hero() {
-  const images = [jolieImage1, jolieImage2, jolieImage3, jolieImage4];
+  const images = [jolieImage1];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // 🔁 Auto-slide every 4 seconds
