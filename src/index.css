@@ -2493,7 +2493,7 @@
 
 :root {
   --font-size: 16px;
-  --background: beige;
+  --background: rgba(245, 245, 220, 0.6); /* beige transparent (fixing) */;
   --foreground: #3e2723;
   --card: #faebd7;
   --card-foreground: #3e2723;
