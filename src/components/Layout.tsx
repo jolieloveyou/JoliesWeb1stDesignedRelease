@@ -44,7 +44,7 @@ export function Layout({ children, isRegistered, userEmail, userName, onRegister
   const [mobileOpenDropdown, setMobileOpenDropdown] = useState<string | null>(null);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F5F5DC] via-[#FAEBD7] to-[#FAF0E6] text-[#3E2723]">
+    <div    className="min-h-screen text-[var(--foreground)]"   style={{     background: 'linear-gradient(to bottom right, var(--background), var(--card), var(--popover))',   }} >
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#FAF0E6]/95 backdrop-blur-md border-b border-[#D2B48C]/30 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
