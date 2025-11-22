@@ -1,27 +1,25 @@
-// src/checkout.ts
-export async function checkout(amountInCents: number, productName: string, email?: string) {
-  // Thay URL bằng function URL thực tế của bạn (Edge Function)
-  const FUNCTION_URL = "https://tbgmfgkuhawgzseokvap.supabase.co/functions/v1/checkout";
+//checkout.ts
+export async function checkout(amount: number, productId: string) {
+  try {
+    const res = await fetch(
+      "https://tbgmfgkuhawgzseokvap.supabase.co/functions/v1/checkout",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount, productId }),
+      }
+    );
 
-  const res = await fetch(FUNCTION_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      amount: amountInCents,
-      product_name: productName,
-      email
-    })
-  });
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
 
-  if (!res.ok) {
-    const txt = await res.text();
-    throw new Error(txt || "Failed to create checkout session");
+    const data = await res.json();
+
+    // Chuyển người dùng sang trang thanh toán Stripe
+    window.location.href = data.url;
+  } catch (err) {
+    console.error("Checkout failed:", err);
+    alert("Không thể thanh toán, thử lại sau.");
   }
-
-  const data = await res.json();
-
-  // data.url là URL Checkout của Stripe
-  if (!data.url) throw new Error("No checkout URL returned");
-  // redirect
-  window.location.href = data.url;
 }
