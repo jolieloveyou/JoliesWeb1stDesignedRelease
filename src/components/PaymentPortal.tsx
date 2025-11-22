@@ -6,7 +6,7 @@ import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { Textarea } from './ui/textarea';
 import { toast } from 'sonner';
-import { checkout } from 'src/checkout'; // helper để gọi edge function
+import { checkout } from '../checkout'; // helper để gọi edge function
 
 interface PaymentPortalProps {
   isRegistered: boolean;
